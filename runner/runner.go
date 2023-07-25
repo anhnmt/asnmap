@@ -7,11 +7,12 @@ import (
 	"os"
 	"strings"
 
-	asnmap "github.com/projectdiscovery/asnmap/libs"
 	"github.com/projectdiscovery/gologger"
 	"github.com/projectdiscovery/hmap/store/hybrid"
 	fileutil "github.com/projectdiscovery/utils/file"
 	sliceutil "github.com/projectdiscovery/utils/slice"
+
+	asnmap "github.com/projectdiscovery/asnmap/libs"
 )
 
 type Runner struct {
@@ -144,7 +145,9 @@ func (r *Runner) setItem(v string) {
 
 func (r *Runner) prepareInput() error {
 	var err error
-	r.hm, err = hybrid.New(hybrid.DefaultDiskOptions)
+	cacheOptions := hybrid.DefaultHybridOptions
+	cacheOptions.DBType = hybrid.BBoltDB
+	r.hm, err = hybrid.New(cacheOptions)
 	if err != nil {
 		return err
 	}
