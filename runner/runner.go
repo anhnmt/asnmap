@@ -145,8 +145,8 @@ func (r *Runner) setItem(v string) {
 
 func (r *Runner) prepareInput() error {
 	var err error
-	cacheOptions := hybrid.DefaultHybridOptions
-	cacheOptions.DBType = hybrid.BBoltDB
+	cacheOptions := hybrid.DefaultDiskOptions
+	cacheOptions.DBType = hybrid.PogrebDB
 	r.hm, err = hybrid.New(cacheOptions)
 	if err != nil {
 		return err
